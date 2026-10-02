@@ -24,19 +24,15 @@ async def call_local_llm(user_prompt: str = "What is 2+2?"):
 
 
 async def main():
-    user_prompt = input("What color do you like????: ")
-    payload["messages"].append({"role": "user", "content": user_prompt})
-    reply = await call_local_llm()
-    payload["messages"].append({"role": "assistant", "content": reply})
-    print(reply)
-
-    user_prompt = input("So what?: ")
-    payload["messages"].append({"role": "user", "content": user_prompt})
-    reply = await call_local_llm()
-    payload["messages"].append({"role": "assistant", "content": reply})
-    print(reply)
-
-
+    while True:
+        user_prompt = input("?> ")
+        payload["messages"].append({"role": "user", "content": user_prompt})
+        reply = await call_local_llm()
+        payload["messages"].append({"role": "assistant", "content": reply})
+        print(reply)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except (KeyboardInterrupt, asyncio.CancelledError, EOFError):
+        print("\n\nSession ended via Ctrl+C. Goodbye!")
