@@ -1,3 +1,4 @@
+import functools
 import inspect
 import json
 import asyncio
@@ -40,6 +41,7 @@ def run_tool(tool_call):
     if not isinstance(args, dict):
         raise ValueError(f"Args must be a dict, got {type(args)}")
 
+    print("Requested tool:", function.__name__, args)
     # Check that function accepts these arg names
     inspect.signature(function).bind(**args)
 
@@ -91,9 +93,12 @@ async def main():
 Use add for addition and get_weather for weather questions.
 Do not invent weather results.
 When asked to remember something, call save_note before confirming.
+When asked about personal details, call search_notes before answering. 
+for example "what is my name", "what is my favorite color", "what is my favorite food", etc.
 When asked to recall or list saved notes, call search_notes before answering.
 Use query="*" to list all notes.
-Never claim notes were saved or found unless the tool result confirms it."""
+Never claim notes were saved or found unless the tool result confirms it.
+"""
     }]
     async with httpx.AsyncClient(timeout=120) as client:
         while True:

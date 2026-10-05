@@ -1,4 +1,10 @@
-from tools.note import save_note, search_notes, TOOLS as DB_TOOLS
+from tools.note import (
+    save_note,
+    search_notes,
+    delete_note,
+    clear_notes,
+    TOOLS as DB_TOOLS
+)
 
 
 def add(a: int, b: int) -> int:
@@ -14,6 +20,8 @@ ALLOWED_TOOLS = {
     "get_weather": get_weather,
     "save_note": save_note,
     "search_notes": search_notes,
+    "delete_note": delete_note,
+    "clear_notes": clear_notes,
 }
 MAX_MODEL_TURNS = 10
 TOOLS = [{
