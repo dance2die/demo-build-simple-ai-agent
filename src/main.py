@@ -87,11 +87,13 @@ async def handle_user_messages(client, messages):
 async def main():
     messages = [{
         "role": "system", 
-        "content": (
-            "be concise. "
-            "Use add for addition. Use get_weather for weather questions. "
-            "Do not invent weather results. "
-        ),
+        "content": """Be concise.
+Use add for addition and get_weather for weather questions.
+Do not invent weather results.
+When asked to remember something, call save_note before confirming.
+When asked to recall or list saved notes, call search_notes before answering.
+Use query="*" to list all notes.
+Never claim notes were saved or found unless the tool result confirms it."""
     }]
     async with httpx.AsyncClient(timeout=120) as client:
         while True:
