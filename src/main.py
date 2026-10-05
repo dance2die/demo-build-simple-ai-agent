@@ -4,7 +4,6 @@ import json
 import asyncio
 import httpx
 from tools import (
-    save_note, search_notes, add, get_weather,
     TOOLS, ALLOWED_TOOLS, MAX_MODEL_TURNS
 )
 
@@ -12,11 +11,7 @@ from tools import (
 URL = "http://172.22.0.1:1234/v1/chat/completions"
 # URL = "http://127.0.0.1:54504/v1/chat/completions"
 MODEL = "google/gemma-4-12b"
-payload = {
-    "model": MODEL,
-    "messages": [{"role": "system", "content": "be consice"}],
-    "stream": False
-}
+
 
 async def ask_model(client, messages):
     response = await client.post(URL, json = {
